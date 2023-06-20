@@ -5,35 +5,34 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Tree;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Hash;
 
 class TreeController extends Controller
 {
     public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'alias' => 'nullable',
-            'tree' => 'required',
-            'leaf_type' => 'nullable',
-            'tree_shape' => 'nullable',
-            'maximum_height' => 'nullable',
-            'drought_tolerance' => 'nullable',
-            'salt_tolerance' => 'nullable',
-            'wind_resistance' => 'nullable',
-            'growth' => 'nullable',
-            'trunk_characteristics' => 'nullable',
-            'common_uses' => 'nullable',
-            'soil_requirements' => 'nullable',
-        ]);
+{
+    $tree = new Tree();
+
+    $tree->name = $request->name;
+    $tree->alias = !empty($request->alias) ? Str::slug($request->alias) : 'arboles';
+    $tree->tree = $request->tree;
+    $tree->leaf_type = $request->leaf_type;
+    $tree->tree_shape = $request->tree_shape;
+    $tree->maximum_height = $request->maximum_height;
+    $tree->drought_tolerance = $request->drought_tolerance;
+    $tree->salt_tolerance = $request->salt_tolerance;
+    $tree->wind_resistance = $request->wind_resistance;
+    $tree->growth = $request->growth;
+    $tree->trunk_characteristics = $request->trunk_characteristics;
+    $tree->common_uses = $request->common_uses;
+    $tree->soil_requirements = $request->soil_requirements;
+    $tree->user_id = $request->user_id;
     
-        $tree = Tree::create($validatedData);
-    
-        return response()->json(['message' => 'Tree created successfully', 'data' => $tree], 201);
-    }
+    $tree->save();
+
+    return response()->json(['message' => 'Tree created successfully', 'data' => $tree], 201);
+}
 
     public function show($id)
     {
@@ -41,7 +40,7 @@ class TreeController extends Controller
 
         return response()->json(['data' => $tree], 200);
     }
-    
+
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
@@ -66,14 +65,11 @@ class TreeController extends Controller
         return response()->json(['message' => 'Tree updated successfully', 'data' => $tree], 200);
     }
 
-    public function destroy($id)
+    public function delete($id)
     {
         $tree = Tree::findOrFail($id);
         $tree->delete();
 
         return response()->json(['message' => 'Tree deleted successfully'], 200);
     }
-
-
-
 }

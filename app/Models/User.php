@@ -50,6 +50,6 @@ class User extends Authenticatable
 
     public function trees ()
     {
-        return $this->belongsToMany(Tree::class);
+        return $this->hasMany(Tree::class);
     }
 }

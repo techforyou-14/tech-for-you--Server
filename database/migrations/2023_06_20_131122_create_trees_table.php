@@ -13,9 +13,13 @@ return new class extends Migration
     {
         Schema::create('trees', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('alias')->default('arbol');
-            $table->string('tree');
+            $table->unsignedBigInteger('user_id');
+
+            // $table->foreign('user_id')->references('id')->on('users');
+
+            $table->string('tree')->nullable();
             $table->string('leaf_type')->nullable();
             $table->string('tree_shape')->nullable();
             $table->string('maximum_height')->nullable();

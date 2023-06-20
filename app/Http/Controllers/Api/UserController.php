@@ -46,7 +46,7 @@ class UserController extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:255',
+            'name' => 'max:255',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:4',
         ]);
@@ -92,6 +92,18 @@ class UserController extends Controller
 
         return response()->json(['message' => 'User updated successfully', 'user' => $user->name], 200);
     }
+
+    public function show($id)
+{
+    $user = User::with('trees')->find($id);
+
+    if (!$user) {
+        return response()->json(['message' => 'User not found'], 404);
+    }
+
+    return response()->json(['data' => $user], 200);
+}
+
 
     public function logout(Request $request)
     {
