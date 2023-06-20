@@ -60,6 +60,21 @@ class TreeController extends Controller
         $tree->trunk_characteristics = $request->input('trunk_characteristics');
         $tree->common_uses = $request->input('common_uses');
         $tree->soil_requirements = $request->input('soil_requirements');
+
+        // Convertir campos a nulos si están vacíos
+        $tree->name = $tree->name ?? null;
+        $tree->alias = $tree->alias ?? null;
+        $tree->tree = $tree->tree ?? null;
+        $tree->leaf_type = $tree->leaf_type ?? null;
+        $tree->tree_shape = $tree->tree_shape ?? null;
+        $tree->maximum_height = $tree->maximum_height ?? null;
+        $tree->drought_tolerance = $tree->drought_tolerance ?? null;
+        $tree->salt_tolerance = $tree->salt_tolerance ?? null;
+        $tree->wind_resistance = $tree->wind_resistance ?? null;
+        $tree->growth = $tree->growth ?? null;
+        $tree->trunk_characteristics = $tree->trunk_characteristics ?? null;
+        $tree->common_uses = $tree->common_uses ?? null;
+        $tree->soil_requirements = $tree->soil_requirements ?? null;
     
         $tree->save();
     
