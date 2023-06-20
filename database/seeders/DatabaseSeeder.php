@@ -37,7 +37,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'user@manager.com',
             'email_verified_at' => now(),
             'password' => Hash::make('123456'), // 123456
-            'rate' => number_format(mt_rand(0, 10000) / 100, 2),
             'remember_token' => Str::random(10),
         ])->assignRole('user');
 
