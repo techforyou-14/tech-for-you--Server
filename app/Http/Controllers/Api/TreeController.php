@@ -41,31 +41,35 @@ class TreeController extends Controller
         return response()->json(['data' => $tree], 200);
     }
 
+  
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'alias' => 'nullable',
-            'tree' => 'required',
-            'leaf_type' => 'nullable',
-            'tree_shape' => 'nullable',
-            'maximum_height' => 'nullable',
-            'drought_tolerance' => 'nullable',
-            'salt_tolerance' => 'nullable',
-            'wind_resistance' => 'nullable',
-            'growth' => 'nullable',
-            'trunk_characteristics' => 'nullable',
-            'common_uses' => 'nullable',
-            'soil_requirements' => 'nullable',
-        ]);
-
-        $tree = Tree::findOrFail($id);
-        $tree->update($validatedData);
-
+        $tree = Tree::find($id);
+    
+        $tree->name = $request->input('name');
+        $tree->alias = !empty($request->input('alias')) ? Str::slug($request->input('alias')) : 'arboles';
+        $tree->tree = $request->input('tree');
+        $tree->image = $request->file('image'); // Aquí se asume que la imagen se envía a través de un campo de formulario llamado "image"
+        $tree->leaf_type = $request->input('leaf_type');
+        $tree->tree_shape = $request->input('tree_shape');
+        $tree->maximum_height = $request->input('maximum_height');
+        $tree->drought_tolerance = $request->input('drought_tolerance');
+        $tree->salt_tolerance = $request->input('salt_tolerance');
+        $tree->wind_resistance = $request->input('wind_resistance');
+        $tree->growth = $request->input('growth');
+        $tree->trunk_characteristics = $request->input('trunk_characteristics');
+        $tree->common_uses = $request->input('common_uses');
+        $tree->soil_requirements = $request->input('soil_requirements');
+    
+        $tree->save();
+    
         return response()->json(['message' => 'Tree updated successfully', 'data' => $tree], 200);
     }
+    
 
-    public function delete($id)
+
+
+    public function destroy($id)
     {
         $tree = Tree::findOrFail($id);
         $tree->delete();

@@ -20,6 +20,7 @@ return new class extends Migration
             // $table->foreign('user_id')->references('id')->on('users');
 
             $table->string('tree')->nullable();
+            $table->string('image')->nullable();
             $table->string('leaf_type')->nullable();
             $table->string('tree_shape')->nullable();
             $table->string('maximum_height')->nullable();
