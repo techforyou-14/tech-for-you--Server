@@ -22,10 +22,17 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'users.login'])->syncRoles([$admin, $user]);
         Permission::create(['name' => 'users.register'])->syncRoles([$admin, $user]);
 
+        //users
         Permission::create(['name' => 'users.update'])->assignRole($user);
         Permission::create(['name' => 'users.logout'])->syncRoles([$admin, $user]);
         Permission::create(['name' => 'users.delete'])->assignRole($user);
         Permission::create(['name' => 'users.show'])->assignRole($user);
+
+        //trees
+        Permission::create(['name' => 'trees.create'])->assignRole($user);
+        Permission::create(['name' => 'trees.update'])->assignRole($user);
+        Permission::create(['name' => 'trees.delete'])->assignRole($user);
+        Permission::create(['name' => 'trees.show'])->assignRole($user);
     
     }
 }

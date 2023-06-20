@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\Request;
+use App\Models\Tree;
 
 
 class User extends Authenticatable
@@ -47,4 +48,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function trees ()
+    {
+        return $this->belongsToMany(Tree::class);
+    }
 }
